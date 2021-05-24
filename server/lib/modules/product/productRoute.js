@@ -45,7 +45,7 @@ productRouter.route('/list')
 * Purpose : product Edit
 */
 productRouter.route('/edit/:id')
-.post([validators.validateId], (req, res) => {
+.put([validators.validateId], (req, res) => {
     productFacade.editProduct(req, res).then((result) => {
         res.send(result)
     }).catch((err) => {
@@ -57,7 +57,7 @@ productRouter.route('/edit/:id')
 * Purpose : product Remove
 */
 productRouter.route('/remove/:id')
-.post([validators.validateId], (req, res) => {
+.delete([validators.validateId], (req, res) => {
     productFacade.removeProduct(req, res).then((result) => {
         res.send(result)
     }).catch((err) => {

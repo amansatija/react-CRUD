@@ -8,14 +8,8 @@ var productSchema = new Schema({
         type: String,
         required: true
     },
-    files: [{
-        type: String,
-        required: true
-    }],
-    product_specs: [{
-        type: String,
-        required: true
-    }],
+    files: { type: Array },
+    product_specs: { type: Array },
     product_isdelete: {
         type: Boolean,
         default: false
@@ -25,7 +19,9 @@ var productSchema = new Schema({
         default: 0
     }
 
-}, { timestamps: true }, { versionKey: true });
+}, { timestamps: true});
 
 
-module.exports = mongoose.model(constants.DB_MODEL_NAME.PRODUCT, productSchema);
+let x  = mongoose.model(constants.DB_MODEL_NAME.PRODUCT, productSchema);
+
+module.exports = x;

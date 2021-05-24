@@ -37,7 +37,7 @@ mongoose.connect(process.env.dbUrl, {
 require("./lib/route")(app);
 
 
-app.listen(process.env.port, () => {
+app.listen(8080, () => {
     console.log("----->localhost running on port 8080--");
 });
 

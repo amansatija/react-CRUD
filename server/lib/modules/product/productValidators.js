@@ -43,7 +43,7 @@ async function validateId(req, res, next) {
             // page: joi.number().optional().min(1),
             id: joi.number().optional().min(1).max(5000)
         });
-        await bodySchema.validateAsync(req.body, { allowUnknown: false })
+        await bodySchema.validateAsync(req.params, { allowUnknown: false })
 
         next();
     } catch (error) {

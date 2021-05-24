@@ -6,9 +6,11 @@ class BaseDao {
     }
 
     save(object) {
+        return this.Model.save(object);
+    }
+    create(object) {
         return this.Model.create(object);
     }
-
     findOne(query, projection) {
         return this.Model.findOne(query, projection).exec();
     }

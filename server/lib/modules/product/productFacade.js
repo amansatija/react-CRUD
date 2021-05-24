@@ -15,6 +15,7 @@ function addProduct(req, res) {
                 return { code: productMsg.CODE.badRequest, message: productMsg.MESSAGE.issueWithAdd, status: false, data: {} };
             }
         }).catch((er) => {
+            console.log('-------------er----',er)
             return { code: productMsg.CODE.badRequest, message: productMsg.MESSAGE.issueWithAdd, status: false, data: {} };
         })
 }

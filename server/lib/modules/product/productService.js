@@ -12,13 +12,14 @@ const productMaster = mongoose.model(constants.DB_MODEL_NAME.PRODUCT, productmod
 const dao = require('../../dao/baseDao');
 
 async function addProduct(req) {
-    console.log(req.body);
+    let addData = req.body;
+    addData.product_specs = JSON.parse(req.body.product_specs);
     let productDao = new dao(productMaster);
 
-    let length = await productDao.find({});
-    req.body.id = length + 1;
-    return productDao.save(addData);
+    let data = await productDao.find({});
+    addData.id = parseInt(data.length) + 1;
 
+    return await productDao.create(addData);
 }
 
 
@@ -94,7 +95,9 @@ function editProduct(req) {
 
     return productDao.findOne(findQuery).then(async (data) => {
         if (data && data != null) {
+            req.body.product_specs = JSON.parse(req.body.product_specs);
 
+            console.log('----req.body----------------',req.body)
             return productDao.findOneAndUpdate(findQuery, { $set: req.body }).then((updateData) => {
                 if (updateData) {
                     return updateData
