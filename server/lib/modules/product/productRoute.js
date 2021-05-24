@@ -65,4 +65,17 @@ productRouter.route('/remove/:id')
     })
 })
 
+/**
+* Purpose : product Add
+*/
+productRouter.route('/uploadData')
+    .post([], (req, res) => {
+        productFacade.uploadData(req, res).then((result) => {
+            res.send(result)
+        }).catch((err) => {
+            res.send(err)
+        })
+    })
+
+
 module.exports = productRouter;

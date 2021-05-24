@@ -24,6 +24,20 @@ class Productservice {
     deleteProduct(productId){
         return axios.delete(API_BASE_URL + 'remove/' + productId);
     }
+
+    uploadData(uploadType,file){
+
+        const fd = new FormData();
+
+        fd.append("updDocs", file);
+        fd.append("updType", uploadType);
+        const headers = {
+          "Content-Type": "multipart/form-data",
+        };
+
+        return axios.post(API_BASE_URL+'uploadData', fd, { headers });
+    }
+
 }
 
 export default new Productservice()

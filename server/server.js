@@ -12,7 +12,7 @@ const fileUpload = require('express-fileupload');
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(cors());
-// app.use(fileUpload());
+app.use(fileUpload());
 // app.use('/images', express.static('./Images/'));
 
 

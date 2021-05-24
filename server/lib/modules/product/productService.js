@@ -10,10 +10,13 @@ const productmodel = require('./productModel');
 const productMaster = mongoose.model(constants.DB_MODEL_NAME.PRODUCT, productmodel.productSchema);
 
 const dao = require('../../dao/baseDao');
+const uploadDataUtil = require("../../utils/imageStore");
 
 async function addProduct(req) {
     let addData = req.body;
     addData.product_specs = JSON.parse(req.body.product_specs);
+    addData.files = JSON.parse(req.body.files);
+
     let productDao = new dao(productMaster);
 
     let data = await productDao.find({});
@@ -97,7 +100,7 @@ function editProduct(req) {
         if (data && data != null) {
             req.body.product_specs = JSON.parse(req.body.product_specs);
 
-            console.log('----req.body----------------',req.body)
+            console.log('----req.body----------------', req.body)
             return productDao.findOneAndUpdate(findQuery, { $set: req.body }).then((updateData) => {
                 if (updateData) {
                     return updateData
@@ -140,11 +143,39 @@ function removeProduct(req) {
 }
 
 
+
+async function uploadData(req) {
+    try {
+        if (req.files == null) {
+            return 3;
+        } else {
+
+            if (req.body.updType == 'image') {
+                let reponseImg = await uploadDataUtil.imageStoreOne(req.files.updDocs);
+
+                if (reponseImg) {
+                    return await reponseImg;
+                } else {
+                    return 'err';
+                }
+            }
+
+
+        }
+
+    } catch (err) {
+        console.log(err);
+        return err
+    }
+
+}
+
 module.exports = {
     addProduct,
     getProductDetails,
     listProduct,
     editProduct,
-    removeProduct
+    removeProduct,
+    uploadData
 };
 

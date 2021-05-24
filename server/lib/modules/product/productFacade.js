@@ -95,11 +95,27 @@ function removeProduct(req, res) {
 }
 
 
+
+function uploadData(req, res) {
+    return productService.uploadData(req, res)
+        .then((data) => {
+            console.log('-------------data------',data)
+            if (data && data != null) {
+                return { code: productMsg.CODE.ok, message: productMsg.MESSAGE.uploadSuccess, status: true, data: data };
+            } else {
+                return { code: productMsg.CODE.badRequest, message: productMsg.MESSAGE.issueWithUpload, status: false, data: {} };
+            }
+        }).catch((er) => {
+            return { code: productMsg.CODE.badRequest, message: productMsg.MESSAGE.issueWithUpload, status: false, data: {} };
+        })
+}
+
 // 
 module.exports = {
     addProduct,
     getProductDetails,
     listProduct,
     editProduct,
-    removeProduct
+    removeProduct,
+    uploadData
 };
